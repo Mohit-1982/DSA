@@ -1,0 +1,17 @@
+Leetcode - 206
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        //we can also solve this using Arraylist its brute approach
+        ListNode forward = head;
+        ListNode current = forward;
+        ListNode previous = null;
+        while(forward != null){
+            forward = forward.next;
+            current.next = previous;
+            previous = current;
+            current = forward;
+        }
+        return previous;
+    }
+}
