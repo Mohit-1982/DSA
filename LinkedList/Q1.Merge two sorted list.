@@ -27,16 +27,8 @@ class Solution {
                 temp1 = temp1.next;
             }
         }
-        while(temp1 != null){
-            t.next = temp1;
-            t = temp1;
-            temp1 = temp1.next;
-        }
-        while(temp2 != null){
-            t.next = temp2;
-            t = temp2;
-            temp2 = temp2.next;
-        }
+        if(temp1 == null) t.next = temp2;
+        else t.next = temp1;
         return dummy.next;
     }
 }
