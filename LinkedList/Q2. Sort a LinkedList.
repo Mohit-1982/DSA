@@ -1,0 +1,48 @@
+Leetcode - 148
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null) return head;
+        if(head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head; 
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode head2 = slow.next;
+        slow.next = null;
+        head = sortList(head);
+        head2 = sortList(head2);
+        return merge(head,head2);
+    }
+    public ListNode merge(ListNode list1 ,ListNode list2){
+        if(list1 == null && list2 == null) return null;
+        ListNode temp1 = list1;
+        ListNode temp2 = list2;
+        ListNode dummy = new ListNode(-1);
+        ListNode t = dummy;
+        while(temp1 != null && temp2 != null){
+            if(temp1.val >= temp2.val){
+                t.next = temp2;
+                temp2 = temp2.next;
+            }else{
+                t.next = temp1;
+                temp1 = temp1.next;
+            }
+                t = t.next;
+        }
+        if(temp1 == null) t.next = temp2;
+        else t.next = temp1;
+        return dummy.next;
+    }
+}
