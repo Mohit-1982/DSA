@@ -1,0 +1,39 @@
+Leetcode - 2130
+
+class Solution {
+    public int pairSum(ListNode head) {
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = even;
+        while(even != null && even.next != null){
+                odd.next = even.next;
+                odd = odd.next;
+                even.next = even.next.next;
+                even = even.next;
+        }
+            even = reverse(evenHead);
+            ListNode i = head;
+            ListNode j = even;
+            int max = Integer.MIN_VALUE;
+            while(j != null){
+                if((i.val + j.val) > max){
+                    max = i.val + j.val;
+                }
+                i = i.next;
+                j = j.next;
+            }
+            return max;
+    }
+    public ListNode reverse(ListNode head){
+        ListNode forward = head;
+        ListNode current = forward;
+        ListNode previous = null;
+        while(forward != null){
+            forward = forward.next;
+            current.next = previous;
+            previous = current;
+            current = forward;
+        }
+        return previous;
+    }
+}
