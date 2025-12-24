@@ -1,0 +1,34 @@
+Leetcode - 234
+
+class Solution {
+    public ListNode reverse(ListNode head){
+        ListNode forward = head;
+        ListNode current = head;
+        ListNode previous = null;
+        while(forward != null){
+            forward = forward.next;
+            current.next = previous;
+            previous = current;
+            current = forward;
+        }
+        return previous;
+    }
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode j = slow.next;
+        ListNode i = head;
+        slow.next = null;
+        j = reverse(j);
+        while(i != null && j != null){
+            if(i.val != j.val) return false;
+            i = i.next;
+            j = j.next;
+        }
+        return true;
+    }
+}
