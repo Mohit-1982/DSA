@@ -1,0 +1,56 @@
+GFG
+
+// REVERSE
+
+ public void rev(ListNode head){
+        ListNode forward = head;
+        ListNode current = head;
+        ListNode previous = null;
+        while(forward != null){
+            forward = forward.next;
+            current.next = previous;
+            previous = current;
+            current = forward;
+        }
+    }
+
+ // DELETION
+
+class Solution {
+    Node deleteNode(Node head, int key) {
+        if(head == null) return head;
+        if(head.next == head){
+            if(head.data == key){
+                return null;
+            }else{
+                return head;
+            }
+        }
+        Node tail = head;
+        
+       while(tail.next != head){
+           tail = tail.next;
+       }
+       tail.next = null;
+       if(head.data == key){
+            head = head.next;
+            tail.next = head;
+            return head;
+        }
+       Node temp = head; 
+       Node temp2 = head.next;
+       while(temp2 != null){
+           if(temp2.data == key){
+              temp.next = temp2.next;
+              if(temp2 == tail){
+                  tail = temp;
+              }
+              break;
+           }
+            temp = temp.next;
+            temp2 = temp2.next;
+       }
+       tail.next = head;
+       return head;
+    }
+}
