@@ -1,5 +1,5 @@
 Leetcode - 1823
-
+Time Complexity --> O(n*k);
 class Solution {
     public int findTheWinner(int n, int k) {
         Queue<Integer> q = new LinkedList<>();
