@@ -1,4 +1,26 @@
-//Optimal Approach for this is first calculate the total sum then start looping till n and sum -= arr[i] at that point sum is equal to value this is out desired index.
+Leetcode - 724
+    
+Optimal Approach :
+    
+    class Solution {
+    public int pivotIndex(int[] nums) {
+        int left = 0;
+        int right = 0;
+        int sum = 0;
+        for(int i = 0;i<nums.length;i++) {
+            sum += nums[i];
+        }
+        for(int i = 0;i<nums.length;i++) {
+            right = sum - left - nums[i];
+            if(left == right) return i;
+            left += nums[i];
+        }
+        return -1;
+    }
+}
+
+Brute Approach :
+    
 class Solution {
     public int pivotIndex(int[] nums) {
         int[] a = prefixSum(nums);
