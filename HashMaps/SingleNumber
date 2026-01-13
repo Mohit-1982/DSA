@@ -1,0 +1,15 @@
+GFG : Tc O(n)   Sc O(n)
+class Solution {
+    int getSingle(int arr[]) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int i = 0;i < arr.length; i++) {
+            if(set.contains(arr[i])) {
+                set.remove(arr[i]);
+            }else {
+                set.add(arr[i]);
+            }
+        }
+        return set.iterator().next(); //used to return last element as we cannot remove anything from set
+        just by set.remove() we have to pass something inside brackets hence we use set.iterator().next();
+    }
+}
