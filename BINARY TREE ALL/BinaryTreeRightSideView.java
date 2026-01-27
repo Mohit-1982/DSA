@@ -1,4 +1,5 @@
 Leetcode - 199
+  //Using BFS
   class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         if(root == null) return new ArrayList<>();
@@ -18,5 +19,26 @@ Leetcode - 199
             }
         }
         return ans;
+    }
+}
+
+//Using DFS
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        //using dfs
+        if(root == null) return new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        dfs(root,ans,0);
+        return ans;
+    }
+    public void dfs(TreeNode root,List<Integer> ans,int level) {
+        if(root == null) return;
+        if(level >= ans.size()) {
+            ans.add(root.val);
+        }else {
+            ans.set(level,root.val);
+        }
+        dfs(root.left,ans,level + 1);
+        dfs(root.right,ans,level + 1);
     }
 }
