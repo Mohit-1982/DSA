@@ -17,6 +17,7 @@ class Solution {
         Queue<Pair> q = new LinkedList<>();
         int level = 0;
         q.add(new Pair(firstBurned,level));
+        burned.add(firstBurned);
         int time = 0;
         while(!q.isEmpty()) {
             Pair front = q.remove();
