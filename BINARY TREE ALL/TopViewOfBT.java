@@ -14,8 +14,8 @@ class Solution {
         ArrayList<Integer> list = new ArrayList<>();
         HashMap<Integer,Integer> map = new HashMap<>();
         int level = 0;
-        int minDist = 0;
-        int maxDist = 0;
+        int minDist = Integer.MAX_VALUE;
+        int maxDist = Integer.MIN_VALUE;
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(root,level));
         
