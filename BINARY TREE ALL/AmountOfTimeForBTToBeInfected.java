@@ -21,11 +21,19 @@ class Solution {
         int time = 0;
         while(!q.isEmpty()) {
             Pair front = q.remove();
-            if(front.node.left != null && !(burned.contains(front.node.left))) q.add(new Pair(front.node.left,front.level + 1));
-            if(front.node.right != null && !(burned.contains(front.node.right))) q.add(new Pair(front.node.right,front.level + 1));
-            if(parent.containsKey(front.node) && !(burned.contains(parent.get(front.node)))) q.add(new Pair(parent.get(front.node),front.level + 1));
+            if(front.node.left != null && !(burned.contains(front.node.left))) {
+                q.add(new Pair(front.node.left,front.level + 1));
+                burned.add(front.node.left);
+            }
+            if(front.node.right != null && !(burned.contains(front.node.right))) {
+                q.add(new Pair(front.node.right,front.level + 1));
+                burned.add(front.node.right);
+            }
+            if(parent.containsKey(front.node) && !(burned.contains(parent.get(front.node)))) {
+                q.add(new Pair(parent.get(front.node),front.level + 1));
+                burned.add(parent.get(front.node));
+            }
             time = Math.max(time,front.level);
-            burned.add(front.node);
         }
         return time;
     }
