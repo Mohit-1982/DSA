@@ -21,7 +21,25 @@ Leetcode - 64
 
 Optimise : 
   *Memoization
-
+    class Solution {
+    public int minPathSum(int[][] grid) {
+        //Memoization
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+        return minPath(0, 0, grid, dp);
+    }
+    public int minPath(int row, int col, int[][] arr, int[][] dp) {
+        if(row >= arr.length || col >= arr[0].length) return Integer.MAX_VALUE;
+        if(row == arr.length - 1 && col == arr[0].length - 1) return arr[row][col];
+        if(dp[row][col] != 0) return dp[row][col];
+        int right = minPath(row, col + 1, arr, dp);
+        int down = minPath(row + 1, col, arr, dp);
+        int ans = arr[row][col] + Math.min(right, down);
+        dp[row][col] = ans;
+        return ans;
+    }
+}
     *Tabulation
       class Solution {
     public int minPathSum(int[][] grid) {
