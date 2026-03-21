@@ -1,0 +1,40 @@
+Leetcode - 300
+  Brute : 
+    class Solution {
+    public int lengthOfLIS(int[] nums) {
+        return helper(nums, 0, -1);
+    }
+    public int helper(int[] nums, int idx, int prevIdx) {
+        if(idx == nums.length) return 0;
+        int pick = -1;
+        if(prevIdx == -1 || nums[idx] > nums[prevIdx]) {
+            pick =  1 + helper(nums, idx + 1, idx);
+        }
+        int skip = helper(nums, idx + 1, prevIdx);
+        return Math.max(pick, skip);
+    }
+}
+
+Better : *Memoization 
+    class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int[][] dp = new int[nums.length][nums.length + 1];
+        for(int[] row : dp) Arrays.fill(row, -1);
+        return helper(nums, 0, -1, dp);
+    }
+    public int helper(int[] nums, int idx, int prevIdx, int[][] dp) {
+        if(idx == nums.length) return 0;
+        if(dp[idx][prevIdx + 1] != -1) return dp[idx][prevIdx + 1];
+        int pick = 0;
+        if(prevIdx == -1 || nums[idx] > nums[prevIdx]) {
+            pick =  1 + helper(nums, idx + 1, idx, dp);
+        }
+        int skip = helper(nums, idx + 1, prevIdx, dp);
+        int ans = Math.max(pick, skip);
+        dp[idx][prevIdx + 1] = ans;
+        return ans;
+    }
+}
+
+Optimal : *Tabulation 
+    
