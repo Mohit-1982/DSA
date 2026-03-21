@@ -55,4 +55,28 @@ Better : *Memoization
 
 *Optimal : 
   Binary Search : 
-      
+      class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        ArrayList<Integer> res = new ArrayList<>();
+        for(int i = 0; i < n; i++) {
+            if(res.isEmpty() || res.get(res.size() -1) < nums[i]) res.add(nums[i]);
+            else {
+                int s = 0;
+                int e = res.size() - 1;
+                int lowerBound = -1;
+                while(s <= e) {
+                    int m = s + (e - s) / 2;
+                    if(res.get(m) >= nums[i]) {
+                        lowerBound = m;
+                        e = m - 1;
+                    }else {
+                        s = m + 1;
+                    }
+                }
+                res.set(lowerBound, nums[i]);
+            }
+        }
+        return res.size();
+    }
+}
