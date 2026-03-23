@@ -1,4 +1,5 @@
 Leetcode - 543
+  Optimal : 
   class Solution {
     static int max;
     public int diameterOfBinaryTree(TreeNode root) {
@@ -14,3 +15,4 @@ Leetcode - 543
         return 1 + Math.max(left,right);
     }
 }
+  
