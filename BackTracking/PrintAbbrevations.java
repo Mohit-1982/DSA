@@ -18,3 +18,33 @@ class Main {
         helper(str, p, i + 1, count + 1);
     }
 }
+
+*2nd Method : 
+    import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        String s = "Mohit";
+        int len = s.length();
+        int n = 1 << s.length();
+        for(int i = 0; i < n; i++) {
+            int count = 0;
+            String p = "";
+            int j = 0;
+            while(j < len) {
+                if(((i >> j) & 1) == 0) {
+                    if(count != 0){
+                         p = p + count + s.charAt(j);
+                         count = 0;
+                    }
+                    else p = p + s.charAt(j);
+                }
+                else count++;
+                j++;
+            }
+            if(count != 0) {
+                p = p + count;
+            }
+            System.out.println(p);
+        }
+    }
+}
