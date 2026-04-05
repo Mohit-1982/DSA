@@ -10,6 +10,7 @@ class Pair{
 }
 class Solution {
     public boolean isTree(int n, int m, ArrayList<ArrayList<Integer>> edges) {
+        if(m != n - 1) return false;
         ArrayList<ArrayList<Integer>> adj = adjForm(edges, n);
         boolean[] vis = new boolean[n];
         int connectedComp = 0;
@@ -67,3 +68,4 @@ class Solution {
         return adj;
     }
 }
+
