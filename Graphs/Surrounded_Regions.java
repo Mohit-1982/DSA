@@ -36,6 +36,7 @@ Leetcode - 130
 }
 
 Correct : 
+DFS:
   class Solution {
     public void solve(char[][] board) {
         int n = board.length;
@@ -80,5 +81,79 @@ Correct :
         dfs(board, vis, row - 1, col);
         dfs(board, vis, row, col + 1);
         dfs(board, vis, row, col - 1);
+    }
+}
+
+BFS:
+  class Pair{
+    int row;
+    int col;
+    
+    Pair(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+}
+class Solution {
+    public void solve(char[][] board) {
+        int n = board.length;
+        int m = board[0].length;
+        boolean[][] vis = new boolean[n][m];
+        Queue<Pair> q = new LinkedList<>();
+
+        //Fill the Queue with all boundary O's
+        for(int i = 0; i < m; i++) {
+            //0th row
+            if(!vis[0][i] && board[0][i] == 'O') {
+                q.add(new Pair(0, i));
+                vis[0][i] = true;
+            }
+            //Last row
+            if(!vis[n - 1][i] && board[n - 1][i] == 'O') {
+                q.add(new Pair(n - 1, i));
+                vis[n - 1][i] = true;
+            }
+        }
+
+        for(int i = 0; i < n; i++) {
+            //0th col
+            if(!vis[i][0] && board[i][0] == 'O') {
+                q.add(new Pair(i, 0));
+                vis[i][0] = true;
+            }
+            //Last col
+            if(!vis[i][m - 1] && board[i][m - 1] == 'O') {
+                q.add(new Pair(i, m - 1));
+                vis[i][m - 1] = true;
+            }
+        }
+
+        int[] dr = {1, -1, 0, 0};
+        int[] dc = {0, 0, 1, -1};
+
+        while(!q.isEmpty()) {
+            //Explore all the Neighbours with O and mark them visited
+            Pair front = q.remove();
+            int row = front.row;
+            int col = front.col;
+
+            for(int i = 0; i < 4; i++) {
+                int nRow = row + dr[i];
+                int nCol = col + dc[i];
+
+                if(nRow >= 0 && nCol >= 0 && nRow < n && nCol < m && !vis[nRow][nCol] && board[nRow][nCol] == 'O') {
+                    q.add(new Pair(nRow, nCol));
+                    vis[nRow][nCol] = true;
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(!vis[i][j] && board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                }
+            }
+        }
     }
 }
