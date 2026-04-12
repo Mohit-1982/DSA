@@ -37,3 +37,75 @@ Leetcode - 1020
         dfs(grid, vis, row, col - 1);
     }
 }
+
+*BFS:
+  class Pair{
+    int row;
+    int col;
+
+    Pair(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+}
+class Solution {
+    public int numEnclaves(int[][] grid) {
+        //Boundary elimination
+        int n = grid.length;
+        int m = grid[0].length;
+        boolean[][] vis = new boolean[n][m];
+        Queue<Pair> q = new LinkedList<>();
+
+        for(int i = 0; i < m; i++) {
+            if(!vis[0][i] && grid[0][i] == 1) {
+                vis[0][i] = true;
+                q.add(new Pair(0, i));
+            }
+            if(!vis[n - 1][i] && grid[n - 1][i] == 1) {
+                vis[n - 1][i] = true;
+                q.add(new Pair(n - 1, i));
+            }
+        }
+
+        for(int i = 0; i < n; i++) {
+            if(!vis[i][0] && grid[i][0] == 1) {
+                vis[i][0] = true;
+                q.add(new Pair(i, 0));
+            }
+            if(!vis[i][m - 1] && grid[i][m - 1] == 1) {
+                vis[i][m - 1] = true;
+                q.add(new Pair(i, m - 1));
+            }
+        }
+
+        int[] dr = {1, -1, 0, 0};
+        int[] dc = {0, 0, 1, -1};
+
+        while(!q.isEmpty()) {
+            Pair front = q.remove();
+            int row = front.row;
+            int col = front.col;
+
+            for(int i = 0; i < 4; i++) {
+                int nRow = row + dr[i];
+                int nCol = col + dc[i];
+
+                if(nRow >= 0 && nCol >= 0 && nRow < n && nCol < m && !vis[nRow][nCol] && grid[nRow][nCol] == 1) {
+                    vis[nRow][nCol] = true;
+                    q.add(new Pair(nRow, nCol));
+                }
+            }
+        }
+
+        int island = 0;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(!vis[i][j] && grid[i][j] == 1) {
+                    island++;
+                }
+            }
+        }
+
+        return island;
+    }
+}
