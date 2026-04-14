@@ -48,6 +48,9 @@ GFG
     }
 }
 
+// We cannot use normal bfs as we have to backtrack for pathvis but normal bfs cannot do this so we have to use kahn's Algo
+
+
 *BFS --> Kahn's Algorithm
   class Solution {
     public boolean isCyclic(int V, int[][] edges) {
