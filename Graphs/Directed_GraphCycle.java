@@ -109,3 +109,58 @@ GFG
         return adj;
     }
 }
+
+*Using Count Variable instead of list (Better for space complexity) : 
+    class Solution {
+    public boolean isCyclic(int V, int[][] edges) {
+        int[] indeg = new int[V];
+        List<List<Integer>> adj = adjBuild(edges, V);
+        
+        for (int i = 0; i < adj.size(); i++) {
+            for (int j = 0; j < adj.get(i).size(); j++) {
+                indeg[adj.get(i).get(j)]++;
+            }
+        }
+        
+        int count = 0;
+        Queue<Integer> q = new LinkedList<>();
+        
+        for (int i = 0; i < V; i++) {
+            if (indeg[i] == 0) {
+                q.add(i);
+            }
+        }
+        
+        while (!q.isEmpty()) {
+            int node = q.remove();
+            count++;
+            
+            for (int adjNode : adj.get(node)) {
+                indeg[adjNode]--;
+                
+                if (indeg[adjNode] == 0) {
+                    q.add(adjNode);
+                }
+            }
+        }
+        
+        return !(count == V);
+    }
+    
+    public List<List<Integer>> adjBuild(int[][] edges, int V) {
+        List<List<Integer>> adj = new ArrayList<>();
+        
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+        
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            
+            adj.get(u).add(v);
+        }
+        
+        return adj;
+    }
+}
