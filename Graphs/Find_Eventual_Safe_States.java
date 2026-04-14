@@ -6,6 +6,9 @@ Leetcode - 802
         List<Integer> res = new ArrayList<>();
         int[] vis = new int[n];
         int[] pathVis = new int[n];
+        // 0 = unknown
+        // 1 = safe
+        // -1 = unsafe
 
         for(int i = 0; i < n; i++) {
             if(vis[i] == 0) dfs(graph, res, vis, pathVis, i);
@@ -85,3 +88,53 @@ Optimal :
         return true;
     }
 }
+
+*DFS Clean Code + Dp Check
+  class Solution {
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        int n = graph.length;
+        int[] dpCheck = new int[n];
+        boolean[] vis = new boolean[n];
+        boolean[] pathVis = new boolean[n];
+        List<Integer> res = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                dfs(i, vis, pathVis, res, graph, dpCheck);
+            }
+        }
+
+        Collections.sort(res);
+        return res;
+    }
+
+    public boolean dfs(int node, boolean[] vis, boolean[] pathVis, List<Integer> res, int[][] graph, int[] dpCheck) {
+
+        vis[node] = true;
+        pathVis[node] = true;
+
+        for (int i = 0; i < graph[node].length; i++) {
+            // i is not the neighbour graph[node][i] is.....
+            int neigh = graph[node][i];
+
+            if (!vis[neigh]) {
+                if (!dfs(neigh, vis, pathVis, res, graph, dpCheck)) {
+                    dpCheck[neigh] = -1;
+                    return false;
+                }
+            }else if (pathVis[neigh]) {
+                dpCheck[neigh] = -1;
+                return false;
+            }else if(dpCheck[node] == -1) {
+                dpCheck[neigh] = -1;
+                return false;
+            }
+        }
+
+        pathVis[node] = false;
+        res.add(node);
+        return true;
+    }
+}
+
+
