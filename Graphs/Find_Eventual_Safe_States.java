@@ -137,4 +137,58 @@ Optimal :
     }
 }
 
+*BFS Kahn's Algorithm
+  class Solution {
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        int n = graph.length;
+        List<List<Integer>> adj = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < n; i++) {//Reverse the graph
+            for (int j = 0; j < graph[i].length; j++) {
+                int u = graph[i][j];
+
+                adj.get(u).add(i);
+            }
+        }
+
+        int[] indeg = new int[n];
+
+        for (int i = 0; i < adj.size(); i++) {
+            for (int j = 0; j < adj.get(i).size(); j++) {
+                indeg[adj.get(i).get(j)]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+
+        for (int i = 0; i < indeg.length; i++) {
+            if (indeg[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        List<Integer> list = new ArrayList<>();
+
+        while(!q.isEmpty()) {
+            int node = q.remove();
+            list.add(node);
+
+            for (int adjNode : adj.get(node)) {
+                indeg[adjNode]--;
+
+                if (indeg[adjNode] == 0) {
+                    q.add(adjNode);
+                }
+            }
+        }
+
+        Collections.sort(list);
+        return list;
+    }
+}
+
 
