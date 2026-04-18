@@ -1,3 +1,4 @@
+*Max Version
 class Solution {
     void selectionSort(int[] arr) {
         int n = arr.length;
@@ -15,6 +16,26 @@ class Solution {
             int temp = arr[lstIdx];
             arr[lstIdx] = arr[maxidx];
             arr[maxidx] = temp;
+        }
+    }
+}
+
+*Min Version :
+    class Solution {
+    void selectionSort(int[] arr) {
+        int n = arr.length;
+        
+        for (int i = 0; i < n; i++) {
+            int minIdx = i;
+            for (int j = i; j < n; j++) {
+                if (arr[j] < arr[minIdx]) {
+                    minIdx = j;
+                }
+            }
+            
+            int temp = arr[i];
+            arr[i] = arr[minIdx];
+            arr[minIdx] = temp;
         }
     }
 }
