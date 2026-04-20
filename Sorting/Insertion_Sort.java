@@ -16,7 +16,7 @@ GFG
         }
     }
 }
-//Learn the right insertion sort
+
 class Solution {
     public void insertionSort(int arr[]) {
         int n = arr.length;
