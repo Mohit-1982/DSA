@@ -16,3 +16,22 @@ GFG
         }
     }
 }
+//Learn the right insertion sort
+class Solution {
+    public void insertionSort(int arr[]) {
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            sort(arr, i);
+        }
+    }
+    
+    public void sort(int[] arr, int i) {
+        if (i <= 0 || arr[i] > arr[i - 1]) return;
+        
+        int temp = arr[i];
+        arr[i] = arr[i - 1];
+        arr[i - 1] = temp;
+        
+        sort(arr, i - 1);
+    }
+}
