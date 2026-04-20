@@ -21,3 +21,25 @@ class Solution {
         }
     }
 }
+
+//Recursive version
+    class Solution {
+    public void bubbleSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            int[] count = new int[1];
+            sort(arr, 0, count, i);
+            if (count[0] == 0) break;
+        }
+    }
+    public void sort(int[] arr, int i, int[] count, int n) {
+        if (i == arr.length - n - 1) return;
+        if (arr[i] > arr[i + 1]) {
+            int temp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = temp;
+            count[0]++;
+        }
+        sort(arr, i + 1, count, n);
+    }
+}
